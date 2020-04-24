@@ -1,12 +1,13 @@
 import React from "react";
-import "./App.css";
-import { Route, Switch, Redirect } from "react-router-dom";
+import "./globalStyles.css";
+import { Route, Switch } from "react-router-dom";
+import { UserPage } from "./pages/user/UserPage";
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" component={} />
+        <Route exact path="/" component={UserPage} />
       </Switch>
     </div>
   );

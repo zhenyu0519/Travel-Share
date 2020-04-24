@@ -1,0 +1,34 @@
+.user-item {
+  margin: 1rem;
+  padding: 20px;
+  width: calc(45% - 2rem);
+  min-width: 17.5rem;
+}
+
+.user-item a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 1rem;
+  color: white;
+  background: #292929;
+}
+
+.user-item a:hover,
+.user-item a:active {
+  background: #ffd900;
+}
+
+
+.user-item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-item-image {
+  width: 100px;
+  height: 100px;
+}
