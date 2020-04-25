@@ -1,18 +1,15 @@
 import React from "react";
 import "./UsersList.css";
 import { UserItem } from "../user-item/UserItem";
+import { Card } from "../card/Card";
 
 export const UsersList = (props) => {
-  if (props.items.length === 0) {
-    return (
-      <div>
-        <h2>No user found</h2>
-      </div>
-    );
-  }
-
-  return (
-    <ul className='user-list'>
+  return props.items.length === 0 ? (
+    <div>
+      <Card>No user found</Card>
+    </div>
+  ) : (
+    <ul className="user-list">
       {props.items.map((user) => {
         return (
           <UserItem

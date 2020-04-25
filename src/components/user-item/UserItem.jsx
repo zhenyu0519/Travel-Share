@@ -15,9 +15,9 @@ export const UserItem = ({ image, name, placeCount, id }) => {
         </div>
         <div className="user-item-info">
           <h2>{name}</h2>
-          <h2>
+          <h3>
             {placeCount} {placeCount === 1 ? "Place" : "Places"}
-          </h2>
+          </h3>
         </div>
       </Card>
     </li>

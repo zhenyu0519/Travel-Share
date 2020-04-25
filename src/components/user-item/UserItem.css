@@ -1,5 +1,4 @@
 .user-item-container {
-  margin: 2rem;
   background-color: #292929;
 }
 
@@ -8,12 +7,24 @@
 }
 
 .user-item-image {
-  width: 60px;
-  height: 60px;
+  width: 35%;
+  margin: auto 10px;
+  width: 80px;
+  height: 80px;
 }
 
 .user-item-info {
+  width: 65%;
+  word-wrap: break-word;
   display: flex;
-  width: 150px;
-  justify-content: space-between;
+  flex-direction: column;
+}
+
+.user-item-info h2 {
+  color: #ffd900;
+}
+
+.user-item-container :hover h2,
+.user-item-container :hover h3 {
+  color: #292929;
 }

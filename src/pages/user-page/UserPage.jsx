@@ -2,11 +2,11 @@ import React from "react";
 import "./UserPage.css";
 import { UsersList } from "../../components/users-list/UsersList";
 
-export const UserPage = () => {
+const UserPage = () => {
   const USERS = [
     {
       id: "u1",
-      name: "jeff",
+      name: "jeffsdsasdadsadsadsadsa",
       image:
         "https://cdn.pixabay.com/photo/2016/08/28/13/12/secondlife-1625903_1280.jpg",
       places: 3,
@@ -21,7 +21,9 @@ export const UserPage = () => {
   ];
   return (
     <div className="user-page">
-      <UsersList items={USERS} />;
+      <UsersList items={USERS} />
     </div>
   );
 };
+
+export default UserPage;
