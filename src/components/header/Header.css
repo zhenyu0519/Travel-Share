@@ -13,13 +13,14 @@
 
 .header-menu-button {
   width: 2rem;
-  height: 2rem;
+  height: 2.5rem;
   background: transparent;
   border: none;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   cursor: pointer;
+  outline: none
 }
 
 .header-menu-button span {
@@ -66,5 +67,14 @@
 @media (min-width: 768px) {
   .header-menu-button {
     display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-bar {
+    display: none;
+  }
+  .header-title {
+    width: 50%;
   }
 }
