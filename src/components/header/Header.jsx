@@ -7,8 +7,7 @@ const Header = (props) => {
   const [sideNavIsOpen, setSideNavOpen] = useState(false);
 
   const openSideNav = () => setSideNavOpen(true);
-  const closeSideNav = () => setSideNavOpen(false);
-
+  const closeSideNav = () => setSideNavOpen(false)
   return (
     <React.Fragment>
       <header className="header-container">

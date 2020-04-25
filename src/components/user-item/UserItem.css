@@ -1,4 +1,5 @@
 .user-item-container {
+  width: 600px;
   background-color: #292929;
 }
 
@@ -7,7 +8,6 @@
 }
 
 .user-item-image {
-  width: 35%;
   margin: auto 10px;
   width: 80px;
   height: 80px;

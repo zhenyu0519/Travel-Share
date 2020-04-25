@@ -21,7 +21,7 @@ const UserPage = () => {
   ];
   return (
     <div className="user-page">
-      <UsersList items={USERS} />
+      <UsersList users={USERS} />
     </div>
   );
 };
