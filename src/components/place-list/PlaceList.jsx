@@ -5,7 +5,7 @@ import { Card } from "../card/Card";
 import { PlaceItem } from "../place-item/PlaceItem";
 
 export const PlaceList = ({ places }) => {
-  console.log(places)
+
   return places.length === 0 ? (
     <div>
       <Card>

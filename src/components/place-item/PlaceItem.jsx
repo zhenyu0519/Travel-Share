@@ -3,6 +3,7 @@ import "./PlaceItem.css";
 import { Card } from "../card/Card";
 import { Link } from "react-router-dom";
 import Modal from "../modal/Modal";
+import { Map } from "../map/Map";
 
 export const PlaceItem = ({
   id,
@@ -11,7 +12,7 @@ export const PlaceItem = ({
   description,
   address,
   creatorId,
-  location,
+  coordinates,
 }) => {
   const [showMap, setShowMap] = useState(false);
   const openMapHandler = () => setShowMap(true);
@@ -29,7 +30,7 @@ export const PlaceItem = ({
         }
       >
         <div className="map-container">
-          <h2>The Map</h2>
+          <Map center={coordinates} zoom={16} />
         </div>
       </Modal>
       <li className="place-item-container">

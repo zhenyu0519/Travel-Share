@@ -27,6 +27,7 @@ const Modal = (props) => {
         in={props.show}
         mountOnEnter
         unmountOnExit
+        timeout={0}
         classNames="modal"
       >
         <ModalOverlay {...props} />
