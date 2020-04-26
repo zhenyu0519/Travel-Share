@@ -1,7 +1,13 @@
 import React from "react";
+import "./PlacePage.css";
+import { FormInput } from "../../components/form-input/FormInput";
 
 const PlacePage = () => {
-  return <div>Welcome to new place</div>;
+  return (
+    <form className="place-form">
+      <FormInput element="input" type="input" label="title" />
+    </form>
+  );
 };
 
 export default PlacePage;
