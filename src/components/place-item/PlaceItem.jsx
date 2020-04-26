@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PlaceItem.css";
 import { Card } from "../card/Card";
+import { Link } from "react-router-dom";
+import Modal from "../modal/Modal";
 
 export const PlaceItem = ({
   id,
@@ -8,26 +10,47 @@ export const PlaceItem = ({
   title,
   description,
   address,
-  creator,
+  creatorId,
   location,
 }) => {
+  const [showMap, setShowMap] = useState(false);
+  const openMapHandler = () => setShowMap(true);
+  const closeMapHandle = () => setShowMap(false);
   return (
-    <li className="place-item-container">
-      <Card className="place-item-content">
-        <div className="place-item-image">
-          <img src={image} alt={title} />
+    <React.Fragment>
+      <Modal
+        show={showMap}
+        onCancel={closeMapHandle}
+        header={address}
+        footer={
+          <button className="modal-actions-button" onClick={closeMapHandle}>
+            Close
+          </button>
+        }
+      >
+        <div className="map-container">
+          <h2>The Map</h2>
         </div>
-        <div className="place-item-info">
-          <h2>{title}</h2>
-          <h3>{address}</h3>
-          <p>{description}</p>
-        </div>
-        <div className="place-item-actions">
-          <button>VIEW ON MAP</button>
-          <button>EDIT</button>
-          <button>DELETE</button>
-        </div>
-      </Card>
-    </li>
+      </Modal>
+      <li className="place-item-container">
+        <Card className="place-item-content">
+          <div className="place-item-image">
+            <img src={image} alt={title} />
+          </div>
+          <div className="place-item-info">
+            <h2>
+              {title} - by {creatorId}
+            </h2>
+            <h3>{address}</h3>
+            <p>{description}</p>
+          </div>
+          <div className="place-item-actions">
+            <button onClick={openMapHandler}>VIEW ON MAP</button>
+            <Link to={`/places/${id}`}>EDIT</Link>
+            <Link to="/">DELETE</Link>
+          </div>
+        </Card>
+      </li>
+    </React.Fragment>
   );
 };

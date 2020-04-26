@@ -1,11 +1,11 @@
 import React from "react";
 import "./PlaceList.css";
-import { Link } from "react-router-dom";
 
 import { Card } from "../card/Card";
 import { PlaceItem } from "../place-item/PlaceItem";
 
 export const PlaceList = ({ places }) => {
+  console.log(places)
   return places.length === 0 ? (
     <div>
       <Card>
@@ -24,7 +24,7 @@ export const PlaceList = ({ places }) => {
             title={place.title}
             description={place.description}
             address={place.address}
-            creatorId={place.creator}
+            creatorId={place.creatorId}
             coordinates={place.location}
           />
         );
