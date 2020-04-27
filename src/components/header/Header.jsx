@@ -1,13 +1,16 @@
 import React, { useState, useContext } from "react";
 import "./Header.css";
+// import components
 import { NavLink } from "react-router-dom";
-import SideNav from "../side-nav/SideNav";
+import { SideNav } from "../side-nav/SideNav";
 import { AuthContext } from "../context/Context";
 
-const Header = (props) => {
+const Header = () => {
+  // react useState hook to manage the sideNavIsOpen state
   const [sideNavIsOpen, setSideNavOpen] = useState(false);
   const openSideNav = () => setSideNavOpen(true);
   const closeSideNav = () => setSideNavOpen(false);
+  // useContext Hook to share the authorized state
   const auth = useContext(AuthContext);
   return (
     <React.Fragment>
@@ -18,7 +21,7 @@ const Header = (props) => {
           <span></span>
         </button>
         <h2 className="header-title">
-          <NavLink to="/">Your Places</NavLink>
+          <NavLink to="/">Time Travel</NavLink>
         </h2>
         <nav className="nav-bar">
           <NavLink to="/" exact>
@@ -26,7 +29,7 @@ const Header = (props) => {
           </NavLink>
           {auth.isLoggedIn && <NavLink to="/u1/places">MY PLACE</NavLink>}
           {auth.isLoggedIn && <NavLink to="/places/new">ADD PLACE</NavLink>}
-          {!auth.isLoggedIn && <NavLink to="/auth">AUTHENTICATE</NavLink>}
+          {!auth.isLoggedIn && <NavLink to="/auth">LOGIN/SIGNUP</NavLink>}
           {auth.isLoggedIn && <button onClick={auth.logout}>LOGE OUT</button>}
         </nav>
       </header>

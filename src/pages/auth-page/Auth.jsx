@@ -1,17 +1,24 @@
 import React, { useState, useContext } from "react";
 import "./Auth.css";
+// import components
 import { FormInput } from "../../components/form-input/FormInput";
+// import validators
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../utils/validator";
+// import useForm state manager
 import { useForm } from "../../components/form-hooks/FormHooks";
+// useContext Hook to share the authorized state
 import { AuthContext } from "../../components/context/Context";
 
 const Auth = () => {
+  // useContext Hook to share the authorized state
   const auth = useContext(AuthContext);
+  // react useState hook to manage the isLoginMode state
   const [isLoginMode, setIsLoginMode] = useState(true);
+  // init the useForm state manager
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: {

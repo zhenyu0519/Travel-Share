@@ -1,8 +1,9 @@
 import React from "react";
 import "./SideNav.css";
+// import react route
 import { NavLink } from "react-router-dom";
 
-const SideNav = ({ closeSideNav }) => {
+export const SideNav = ({ closeSideNav }) => {
   return (
     <nav className="side-nav">
       <button className="closebtn" onClick={closeSideNav}>
@@ -16,9 +17,7 @@ const SideNav = ({ closeSideNav }) => {
       <hr />
       <NavLink to="/places/new">ADD PLACE</NavLink>
       <hr />
-      <NavLink to="/auth">AUTHENTICATE</NavLink>
+      <NavLink to="/auth">LOGIN/SIGNUP</NavLink>
     </nav>
   );
 };
-
-export default SideNav;

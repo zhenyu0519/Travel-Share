@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import "./FormInput.css";
+// import validtor
 import { validate } from "../../utils/validator";
 const inputReducer = (state, action) => {
   switch (action.type) {
@@ -37,7 +38,7 @@ export const FormInput = ({
     isValid: initialValid || false,
     isTouched: false,
   });
-
+  // receive a function with side effect as first parameter, the second parameter is dependence of triger
   useEffect(() => {
     onInput(id, inputState.value, inputState.isValid);
   }, [id, inputState.value, inputState.isValid, onInput]);
