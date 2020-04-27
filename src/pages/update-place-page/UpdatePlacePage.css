@@ -1,11 +1,38 @@
 .place-form {
-    list-style: none;
-    margin: 0 auto;
-    padding: 1rem;
-    width: 90%;
-    max-width: 40rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 6px;
-    background: white;
-  }
-  
+  list-style: none;
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 40rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  background: white;
+}
+.place-not-found {
+  margin: 50px auto;
+  width: 500px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.place-form button {
+  display: block;
+  margin: 1rem auto;
+  width: 10vw;
+  height: 4vh auto;
+  font-size: 12px;
+  background-color: white;
+  color: #292929;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  line-height: 30px;
+}
+
+.place-form button:hover {
+  background-color: #292929;
+  color: white;
+}

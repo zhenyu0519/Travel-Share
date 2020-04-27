@@ -3,16 +3,14 @@ import "./PlaceList.css";
 
 import { Card } from "../card/Card";
 import { PlaceItem } from "../place-item/PlaceItem";
+import { Link } from "react-router-dom";
 
 export const PlaceList = ({ places }) => {
-
   return places.length === 0 ? (
-    <div>
-      <Card>
-        <h2>No places found</h2>
-        <button>Share Place</button>
-      </Card>
-    </div>
+    <Card className="place-list-not-found">
+      <h2>No places found</h2>
+      <Link to="/places/new">Share Place</Link>
+    </Card>
   ) : (
     <ul className="place-list">
       {places.map((place) => {
