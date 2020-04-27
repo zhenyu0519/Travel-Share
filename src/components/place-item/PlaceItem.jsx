@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./PlaceItem.css";
 import { Card } from "../card/Card";
 import { Link } from "react-router-dom";
 import Modal from "../modal/Modal";
 import { Map } from "../map/Map";
+import { AuthContext } from "../context/Context";
 
 export const PlaceItem = ({
   id,
@@ -14,6 +15,7 @@ export const PlaceItem = ({
   creatorId,
   coordinates,
 }) => {
+  const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const openMapHandler = () => setShowMap(true);
@@ -81,8 +83,10 @@ export const PlaceItem = ({
           </div>
           <div className="place-item-actions">
             <button onClick={openMapHandler}>VIEW ON MAP</button>
-            <Link to={`/places/${id}`}>EDIT</Link>
-            <button onClick={showDeleteWarningHandler}>DELETE</button>
+            {auth.isLoggedIn && <Link to={`/places/${id}`}>EDIT</Link>}
+            {auth.isLoggedIn && (
+              <button onClick={showDeleteWarningHandler}>DELETE</button>
+            )}
           </div>
         </Card>
       </li>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Auth.css";
 import { FormInput } from "../../components/form-input/FormInput";
 import {
@@ -7,8 +7,10 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../utils/validator";
 import { useForm } from "../../components/form-hooks/FormHooks";
+import { AuthContext } from "../../components/context/Context";
 
 const Auth = () => {
+  const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -27,6 +29,7 @@ const Auth = () => {
   const authSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs);
+    auth.login();
   };
 
   const switchModelHandler = () => {
@@ -89,7 +92,7 @@ const Auth = () => {
             {isLoginMode ? "LOGIN" : "SIGN UP"}
           </button>
           <button onClick={switchModelHandler}>
-            SWITCH TO {isLoginMode ? "SIGN UP" : "Login"}
+            SWITCH TO {isLoginMode ? "SIGN UP" : "LOGIN"}
           </button>
         </div>
       </form>

@@ -20,7 +20,7 @@
   flex-direction: column;
   justify-content: space-around;
   cursor: pointer;
-  outline: none
+  outline: none;
 }
 
 .header-menu-button span {
@@ -61,6 +61,21 @@
 }
 
 .nav-bar a:hover {
+  color: #ffd900;
+}
+
+.nav-bar button {
+  font-size: 15px;
+  font-family: "Comic Neue", cursive;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #292929;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.nav-bar button:hover {
   color: #ffd900;
 }
 
