@@ -1,13 +1,12 @@
-.place-form {
-  list-style: none;
-  margin: 10rem auto;
+.update-place-form {
   padding: 1rem;
+  margin: 10rem auto;
   max-width: 40rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 6px;
   background: white;
 }
-.place-not-found {
+.update-place-not-found {
   margin: 50px auto;
   width: 500px;
   height: 200px;
@@ -16,7 +15,7 @@
   align-items: center;
 }
 
-.place-form button {
+.update-place-form button {
   display: block;
   margin: 1rem auto;
   width: 10vw;
@@ -32,7 +31,7 @@
   line-height: 30px;
 }
 
-.place-form button:hover {
+.update-place-form button:hover {
   background-color: white;
   color: #292929;
 }

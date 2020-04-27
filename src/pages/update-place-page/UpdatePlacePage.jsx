@@ -81,7 +81,7 @@ const UpdatePlacePage = () => {
 
   if (!identifiedPlace) {
     return (
-      <Card className="place-not-found">
+      <Card className="update-place-not-found">
         <h2>No places found</h2>
       </Card>
     );
@@ -95,7 +95,7 @@ const UpdatePlacePage = () => {
     );
   }
   return (
-    <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+    <form className="update-place-form" onSubmit={placeUpdateSubmitHandler}>
       <FormInput
         id="title"
         element="input"

@@ -7,6 +7,7 @@ import UserPlacePage from "./pages/user-place-page/UserPlacePage";
 import PlacePage from "./pages/place-page/PlacePage";
 import Header from "./components/header/Header";
 import UpdatePlacePage from "./pages/update-place-page/UpdatePlacePage";
+import Auth from "./pages/auth-page/Auth";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/places/new" component={PlacePage} />
         <Route exact path="/places/:placeId" component={UpdatePlacePage} />
         <Route exact path="/:userId/places" component={UserPlacePage} />
+        <Route exact path="/auth" component={Auth} />
       </Switch>
     </div>
   );

@@ -1,16 +1,25 @@
-.place-form {
+.auth-container {
   padding: 1rem;
   margin: 10rem auto;
-  max-width: 40rem;
+  max-width: 30rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 6px;
   background: white;
+  color: black;
 }
 
-.place-form button {
+.auth-container h2 {
+  text-align: center;
+}
+
+.auth-container hr {
+  margin: 1rem;
+}
+
+.auth-container button {
   display: block;
   margin: 1rem auto;
-  width: 10vw;
+  width: 20vw;
   height: 4vh auto;
   font-size: 12px;
   background-color: #292929;
@@ -23,7 +32,13 @@
   line-height: 30px;
 }
 
-.place-form button:hover {
+.auth-container button:hover {
   background-color: white;
   color: #292929;
+}
+
+.auth-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
