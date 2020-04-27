@@ -6,6 +6,7 @@ import UserPage from "./pages/user-page/UserPage";
 import UserPlacePage from "./pages/user-place-page/UserPlacePage";
 import PlacePage from "./pages/place-page/PlacePage";
 import Header from "./components/header/Header";
+import UpdatePlacePage from "./pages/update-place-page/UpdatePlacePage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={UserPage} />
         <Route exact path="/places/new" component={PlacePage} />
+        <Route exact path="/places/:placeId" component={UpdatePlacePage} />
         <Route exact path="/:userId/places" component={UserPlacePage} />
       </Switch>
     </div>

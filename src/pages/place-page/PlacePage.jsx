@@ -38,9 +38,14 @@ const PlacePage = () => {
         value: "",
         isValid: false,
       },
+      address: {
+        value: "",
+        isValid: false,
+      },
     },
     isValid: false,
   });
+
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
       type: "INPUT_CHANGE",
@@ -60,15 +65,16 @@ const PlacePage = () => {
         id="title"
         element="input"
         type="input"
-        label="title"
+        label="Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter valid title"
         onInput={inputHandler}
+        placeholder="Title"
       />
       <FormInput
         id="description"
         element="textarea"
-        label="description"
+        label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter valid description at least 5 charactors"
         onInput={inputHandler}
