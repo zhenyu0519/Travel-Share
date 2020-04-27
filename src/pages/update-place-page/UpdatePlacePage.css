@@ -1,6 +1,6 @@
 .place-form {
   list-style: none;
-  margin: 0 auto;
+  margin: 10rem auto;
   padding: 1rem;
   max-width: 40rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -22,10 +22,10 @@
   width: 10vw;
   height: 4vh auto;
   font-size: 12px;
-  background-color: white;
-  color: #292929;
+  background-color: #292929;
+  color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  border-radius: 6px;
   cursor: pointer;
   text-align: center;
   outline: none;
@@ -33,6 +33,6 @@
 }
 
 .place-form button:hover {
-  background-color: #292929;
-  color: white;
+  background-color: white;
+  color: #292929;
 }

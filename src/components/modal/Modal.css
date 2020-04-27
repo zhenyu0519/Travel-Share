@@ -2,8 +2,8 @@
   z-index: 100;
   position: fixed;
   top: 22vh;
-  left: 10%;
-  width: 80%;
+  left: 20%;
+  width: 60%;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   border-radius: 20px;
@@ -24,6 +24,9 @@
 
 .modal-content {
   padding: 1rem 1rem;
+  text-align: center;
+  font-weight: bold;
+  color: red;
 }
 
 .modal-footer {
@@ -31,4 +34,10 @@
   background: #363636;
   color: white;
   text-align: center;
+}
+
+.modal-button-group{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
