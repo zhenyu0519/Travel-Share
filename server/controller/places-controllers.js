@@ -1,6 +1,7 @@
 const HttpError = require("../models/http-error");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
+const getCoordsForAddress = require("../util/location");
 
 let DUMMY_PLACES = [
   {
@@ -51,18 +52,25 @@ const getPlacesByUserId = (req, res, next) => {
   res.json({ places: places });
 };
 
-const createPlace = (req, res, next) => {
+const createPlace = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors);
-    throw new HttpError("Invalid inputs passed, please check your data", 422);
+    // thorw is not working async function, change to next here
+    return next(new HttpError("Invalid inputs passed, please check your data", 422));
   }
-  const { title, description, location, address, creator } = req.body;
+  const { title, description, address, creator } = req.body;
+  let coordinates;
+  try {
+    coordinates = await getCoordsForAddress(address);
+  } catch (error) {
+    return next(error);
+  }
+
   const createdPlace = {
     id: uuidv4(),
     title,
     description,
-    location,
+    location: coordinates,
     address,
     creator,
   };
@@ -76,7 +84,10 @@ const updatePlace = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
-    throw new HttpError("Invalid inputs passed, please check your input data", 422);
+    throw new HttpError(
+      "Invalid inputs passed, please check your input data",
+      422
+    );
   }
   const { title, description } = req.body;
   const placeId = req.params.pid;
