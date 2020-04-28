@@ -2,9 +2,11 @@ import React, { useRef, useEffect } from "react";
 import "./Map.css";
 
 export const Map = (props) => {
+  // return ref object
   const mapRef = useRef();
   const { center, zoom } = props;
   useEffect(() => {
+    // get map and choose a theme
     const map = new window.google.maps.Map(mapRef.current, {
       center: center,
       zoom: zoom,

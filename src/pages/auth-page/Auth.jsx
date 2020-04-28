@@ -59,7 +59,6 @@ const Auth = () => {
     }
     setIsLoginMode((prevMode) => !prevMode);
   };
-
   return (
     <div className="auth-container">
       <h2>Login Required</h2>

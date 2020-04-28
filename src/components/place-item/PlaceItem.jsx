@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import "./PlaceItem.css";
+// components
 import { Card } from "../card/Card";
 import { Link } from "react-router-dom";
-import Modal from "../modal/Modal";
+import { Modal } from "../modal/Modal";
 import { Map } from "../map/Map";
 import { AuthContext } from "../context/Context";
 

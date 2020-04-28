@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./UpdatePlacePage.css";
+// import react route
 import { useParams } from "react-router-dom";
+// import components
 import { FormInput } from "../../components/form-input/FormInput";
-import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../utils/validator";
 import { useForm } from "../../components/form-hooks/FormHooks";
 import { Card } from "../../components/card/Card";
+// import validtor
+import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../utils/validator";
 
 const DUMMY_PLACES = [
   {
@@ -37,6 +40,7 @@ const DUMMY_PLACES = [
 
 const UpdatePlacePage = () => {
   const [isLoading, setIsLoading] = useState(true);
+  // useParams is to get parameter from path of route
   const placeId = useParams().placeId;
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -52,6 +56,7 @@ const UpdatePlacePage = () => {
     },
     false
   );
+  // this is to filter the place with specified place id
   const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
 
   useEffect(() => {
@@ -70,15 +75,14 @@ const UpdatePlacePage = () => {
         true
       );
     }
-
     setIsLoading(false);
   }, [setFormData, identifiedPlace]);
-
+  // update place information
   const placeUpdateSubmitHandler = (event) => {
     event.preventDefault();
     console.log(formState.inputs);
   };
-
+  // If there is not page that match the path
   if (!identifiedPlace) {
     return (
       <Card className="update-place-not-found">

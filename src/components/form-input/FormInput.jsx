@@ -2,6 +2,8 @@ import React, { useReducer, useEffect } from "react";
 import "./FormInput.css";
 // import validtor
 import { validate } from "../../utils/validator";
+
+// input reducer to manage input state
 const inputReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
@@ -43,6 +45,7 @@ export const FormInput = ({
     onInput(id, inputState.value, inputState.isValid);
   }, [id, inputState.value, inputState.isValid, onInput]);
 
+  // can be think as an action of input change
   const changeHandler = (event) => {
     dispatch({
       type: "CHANGE",
@@ -51,6 +54,7 @@ export const FormInput = ({
     });
   };
 
+  // an action of input focus, when you toched the input and input is invalid then error occur
   const touchHandler = () => {
     dispatch({
       type: "TOUCH",

@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDom from "react-dom";
+// import transition library
 import { CSSTransition } from "react-transition-group";
 import "./Modal.css";
+// backdrop component is to close the modal when you click outside of modal
 import { Backdrop } from "../backdrop/Backdrop";
 
 const ModalOverlay = ({ header, onSubmit, children, footer }) => {
@@ -19,7 +21,7 @@ const ModalOverlay = ({ header, onSubmit, children, footer }) => {
   return ReactDom.createPortal(content, document.getElementById("modal-hook"));
 };
 
-const Modal = (props) => {
+export const Modal = (props) => {
   return (
     <React.Fragment>
       {props.show && <Backdrop onClick={props.onCancel} />}
@@ -35,5 +37,3 @@ const Modal = (props) => {
     </React.Fragment>
   );
 };
-
-export default Modal;

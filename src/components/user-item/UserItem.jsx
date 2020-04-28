@@ -1,5 +1,6 @@
 import React from "react";
 import "./UserItem.css";
+// components
 import { UserAvatar } from "../user-avatar/UserAvatar";
 import { Link } from "react-router-dom";
 import { Card } from "../../components/card/Card";
