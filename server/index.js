@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const HttpError = require("./models/http-error");
 const placesRoutes = require("./routes/places-routes");
 const userRoutes = require("./routes/users-routes");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -28,4 +29,16 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occured!" });
 });
 
-app.listen(5000);
+// if connect to database is successful then we start the server
+mongoose
+  .connect(
+    "mongodb+srv://Jeffrey:362908227colin@cluster0-lpr0w.mongodb.net/places?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
+  )
+  .then(() => {
+    console.log("=== Database Connected! ===");
+    app.listen(5000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
