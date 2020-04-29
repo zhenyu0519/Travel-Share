@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use("/api/places", placesRoutes);
 app.use("/api/users", userRoutes);
 
-//
+// if the router is unknow, throw error
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   throw error;
