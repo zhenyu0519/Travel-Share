@@ -22,7 +22,7 @@ const signup = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your input data", 422)
     );
   }
-  const { name, email, password, places } = req.body;
+  const { name, email, password } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email: email });
@@ -42,7 +42,7 @@ const signup = async (req, res, next) => {
     image:
       "https://cdn.pixabay.com/photo/2016/08/28/13/12/secondlife-1625903_1280.jpg",
     password,
-    places,
+    places: [],
   });
 
   try {
