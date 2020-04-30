@@ -12,6 +12,21 @@ const app = express();
 // this will parse any income request body to json format
 app.use(bodyParser.json());
 
+// control the cross origin resource sharing (cors)
+app.use((req, res, next) => {
+  // let response header have these values attached
+  // allow to control which domain should have access, where the browser should allow this, here we open to any domain
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  // allow to control which header should have access
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
+  );
+  // allow to control which methods should have access
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+  next();
+});
+
 // our own custom routes
 app.use("/api/places", placesRoutes);
 app.use("/api/users", userRoutes);
