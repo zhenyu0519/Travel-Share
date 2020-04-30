@@ -1,20 +1,24 @@
-const HttpError = require("../models/http-error");
+const HttpError = require("../util/http-error");
 const { validationResult } = require("express-validator");
-const { v4: uuidv4 } = require("uuid");
+// import User schema
 const User = require("../models/user");
 
+// get users api
 const getUsers = async (req, res, next) => {
   let users;
   try {
+    // get user info without password
     users = await User.find({}, "-password");
   } catch (err) {
-    const error = new HttpError("Fetching user failed", 500);
-    return next(error);
+    return next(new HttpError("Fetching user failed!", 500));
   }
+  // response with user info and convert document id from _id to id
   res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
+// user sign up api
 const signup = async (req, res, next) => {
+  // validate input data, this correspond to the check in user route file
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
@@ -22,20 +26,18 @@ const signup = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your input data", 422)
     );
   }
+  // get request params
   const { name, email, password } = req.body;
-  let existingUser;
+  // check if the signup user existing in database by email
   try {
-    existingUser = await User.findOne({ email: email });
+    let existingUser = await User.findOne({ email: email });
+    if (existingUser) {
+      return next(new HttpError("User already existed!", 422));
+    }
   } catch (err) {
-    const error = new HttpError("find user failed", 500);
-    return next(error);
+    return next(new HttpError("Find user failed!", 500));
   }
-
-  if (existingUser) {
-    const error = new HttpError("user already existed", 422);
-    return next(error);
-  }
-
+  // created new user base on User schema
   const createdUser = new User({
     name,
     email,
@@ -44,37 +46,37 @@ const signup = async (req, res, next) => {
     password,
     places: [],
   });
-
+  // save the created user to database
   try {
     await createdUser.save();
   } catch (err) {
-    const error = new HttpError("Signing up user failed", 500);
+    const error = new HttpError("Signing up user failed!", 500);
     return next(error);
   }
-
+  // response the new created user when sign up successfully
   res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
+// user login api
 const login = async (req, res, next) => {
   const { email, password } = req.body;
-  let existingUser;
   try {
-    existingUser = await User.findOne({ email: email });
+    // find user by email
+    let existingUser = await User.findOne({ email: email });
+    // if user is not existing or password is not correct then return error
+    if (!existingUser || existingUser.password !== password) {
+      return next(
+        new HttpError("Invalid credentials, could not log you in.", 500)
+      );
+    }
   } catch (err) {
-    const error = new HttpError("find user failed", 500);
-    return next(error);
+    return next(new HttpError("Find user failed", 500));
   }
-  if (!existingUser || existingUser.password !== password) {
-    const error = new HttpError(
-      "Invalid credentials, could not log you in.",
-      500
-    );
-    return next(error);
-  }
-
+  // if login successfully then response with successful message
   res.json({ message: "logged in!" });
 };
 
+// export user controllers
 exports.getUsers = getUsers;
 exports.signup = signup;
 exports.login = login;
