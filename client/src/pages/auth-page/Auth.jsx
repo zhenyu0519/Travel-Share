@@ -57,7 +57,9 @@ const Auth = () => {
         false
       );
     }
-    setIsLoginMode((prevMode) => !prevMode);
+    setIsLoginMode((prevMode) => {
+      return !prevMode;
+    });
   };
   return (
     <div className="auth-container">
@@ -97,7 +99,7 @@ const Auth = () => {
           <button type="submit" disabled={!formState.isValid}>
             {isLoginMode ? "LOGIN" : "SIGN UP"}
           </button>
-          <button onClick={switchModelHandler}>
+          <button type="button" onClick={switchModelHandler}>
             SWITCH TO {isLoginMode ? "SIGN UP" : "LOGIN"}
           </button>
         </div>

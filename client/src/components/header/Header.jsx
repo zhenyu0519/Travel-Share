@@ -30,7 +30,7 @@ const Header = () => {
           {auth.isLoggedIn && <NavLink to="/u1/places">MY PLACE</NavLink>}
           {auth.isLoggedIn && <NavLink to="/places/new">ADD PLACE</NavLink>}
           {!auth.isLoggedIn && <NavLink to="/auth">LOGIN/SIGNUP</NavLink>}
-          {auth.isLoggedIn && <button onClick={auth.logout}>LOGE OUT</button>}
+          {auth.isLoggedIn && <button onClick={auth.logout}>LOG OUT</button>}
         </nav>
       </header>
       {sideNavIsOpen ? <SideNav closeSideNav={closeSideNav} /> : null}
