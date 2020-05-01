@@ -4,33 +4,28 @@ import "./UserPage.css";
 import { UsersList } from "../../components/users-list/UsersList";
 import { ErrorModal } from "../../components/error-modal/ErrorModal";
 import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner";
+import { useHttpClient } from "../../components/http-hooks/HttpHooks";
 
 const UserPage = () => {
   // manage loading state and error state
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const {
+    isLoading,
+    error,
+    sendRequest,
+    clearErrorModalHandler,
+  } = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   useEffect(() => {
-    const sendRequest = async () => {
-      setIsLoading(true);
+    const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/users");
-        const responseData = await response.json();
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/users"
+        );
         setLoadedUsers(responseData.users);
-      } catch (error) {
-        setError(error.message);
-      }
-      setIsLoading(false);
+      } catch (error) {}
     };
-    sendRequest();
-  }, []);
-
-  const clearErrorModalHandler = () => {
-    setError(null);
-  };
+    fetchUsers();
+  }, [sendRequest]);
 
   return (
     <div className="user-page">
