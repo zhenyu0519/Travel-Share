@@ -4,6 +4,7 @@ import "./Auth.css";
 import { FormInput } from "../../components/form-input/FormInput";
 import { ErrorModal } from "../../components/error-modal/ErrorModal";
 import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner";
+import { useHttpClient } from "../../components/http-hooks/HttpHooks";
 // import validators
 import {
   VALIDATOR_EMAIL,
@@ -20,9 +21,6 @@ const Auth = () => {
   const auth = useContext(AuthContext);
   // react useState hook to manage the isLoginMode state
   const [isLoginMode, setIsLoginMode] = useState(true);
-  // manage loading state and error state
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
   // init the useForm state manager
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -37,60 +35,45 @@ const Auth = () => {
     },
     false
   );
+  //
+  const {
+    isLoading,
+    error,
+    sendRequest,
+    clearErrorModalHandler,
+  } = useHttpClient();
 
   const authSubmitHandler = async (event) => {
     event.preventDefault();
     if (isLoginMode) {
       try {
-        setIsLoading(true);
-        const response = await fetch("http://localhost:5000/api/users/login", {
-          method: "POST",
-          // to let backend server know the data type send to it
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // convert all requset data to json
-          body: JSON.stringify({
+        await sendRequest(
+          "http://localhost:5000/api/users/login",
+          "POST",
+          JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
           }),
-        });
-        const responseData = await response.json();
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
-        setIsLoading(false);
+          { "Content-Type": "application/json" }
+        );
         auth.login();
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message || "Authenticate faild!");
-      }
+      } catch (error) {}
     } else {
       try {
-        setIsLoading(true);
-        const response = await fetch("http://localhost:5000/api/users/signup", {
-          method: "POST",
-          // to let backend server know the data type send to it
-          headers: {
-            "Content-Type": "application/json",
-          },
-          // convert all requset data to json
-          body: JSON.stringify({
+        await sendRequest(
+          "http://localhost:5000/api/users/signup",
+          "POST",
+          JSON.stringify({
             name: formState.inputs.name.value,
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
           }),
-        });
-        const responseData = await response.json();
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
-        setIsLoading(false);
+          {
+            "Content-Type": "application/json",
+          }
+        );
         auth.login();
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message || "Authenticate faild!");
-      }
+      } catch (error) {}
     }
   };
 
@@ -115,10 +98,6 @@ const Auth = () => {
     setIsLoginMode((prevMode) => {
       return !prevMode;
     });
-  };
-
-  const clearErrorModalHandler = () => {
-    setError(null);
   };
 
   return (

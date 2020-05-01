@@ -4,7 +4,7 @@ import "./UsersList.css";
 import { UserItem } from "../user-item/UserItem";
 import { Card } from "../card/Card";
 
-export const UsersList = ({users}) => {
+export const UsersList = ({ users }) => {
   return users.length === 0 ? (
     <div>
       <Card>No user found</Card>
@@ -18,7 +18,7 @@ export const UsersList = ({users}) => {
             id={user.id}
             image={user.image}
             name={user.name}
-            placeCount={user.places}
+            placeCount={user.places.length}
           />
         );
       })}

@@ -1,27 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./UserPage.css";
+// components
 import { UsersList } from "../../components/users-list/UsersList";
+import { ErrorModal } from "../../components/error-modal/ErrorModal";
+import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner";
 
 const UserPage = () => {
-  const USERS = [
-    {
-      id: "u1",
-      name: "jeffsdsasdadsadsadsadsa",
-      image:
-        "https://cdn.pixabay.com/photo/2016/08/28/13/12/secondlife-1625903_1280.jpg",
-      places: 3,
-    },
-    {
-      id: "u2",
-      name: "hong",
-      image:
-        "https://cdn.pixabay.com/photo/2016/08/20/15/29/avatar-1607754_1280.jpg",
-      places: 2,
-    },
-  ];
+  // manage loading state and error state
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [loadedUsers, setLoadedUsers] = useState();
+  useEffect(() => {
+    const sendRequest = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://localhost:5000/api/users");
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setLoadedUsers(responseData.users);
+      } catch (error) {
+        setError(error.message);
+      }
+      setIsLoading(false);
+    };
+    sendRequest();
+  }, []);
+
+  const clearErrorModalHandler = () => {
+    setError(null);
+  };
+
   return (
     <div className="user-page">
-      <UsersList users={USERS} />
+      <ErrorModal error={error} onClear={clearErrorModalHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
+      {!isLoading && loadedUsers && <UsersList users={loadedUsers} />}
     </div>
   );
 };
