@@ -8,7 +8,7 @@ export const ErrorModal = ({ onClear, error }) => {
       onCancel={onClear}
       header="An Error Occurred!"
       show={!!error}
-      footer={<button onClick={onClear}>Okay</button>}
+      footer={<button className="error-modal-button" onClick={onClear}>Okay</button>}
     >
       <p>{error}</p>
     </Modal>

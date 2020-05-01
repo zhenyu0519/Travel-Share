@@ -41,6 +41,30 @@ const Auth = () => {
   const authSubmitHandler = async (event) => {
     event.preventDefault();
     if (isLoginMode) {
+      try {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:5000/api/users/login", {
+          method: "POST",
+          // to let backend server know the data type send to it
+          headers: {
+            "Content-Type": "application/json",
+          },
+          // convert all requset data to json
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setIsLoading(false);
+        auth.login();
+      } catch (error) {
+        setIsLoading(false);
+        setError(error.message || "Authenticate faild!");
+      }
     } else {
       try {
         setIsLoading(true);
@@ -58,7 +82,9 @@ const Auth = () => {
           }),
         });
         const responseData = await response.json();
-        console.log(responseData);
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
         setIsLoading(false);
         auth.login();
       } catch (error) {
@@ -90,51 +116,59 @@ const Auth = () => {
       return !prevMode;
     });
   };
+
+  const clearErrorModalHandler = () => {
+    setError(null);
+  };
+
   return (
-    <div className="auth-container">
-      {isLoading && <LoadingSpinner asOverlay />}
-      <h2>Login Required</h2>
-      <hr />
-      <form onSubmit={authSubmitHandler}>
-        {!isLoginMode && (
+    <React.Fragment>
+      <ErrorModal error={error} onClear={clearErrorModalHandler} />
+      <div className="auth-container">
+        {isLoading && <LoadingSpinner asOverlay />}
+        <h2>Login Required</h2>
+        <hr />
+        <form onSubmit={authSubmitHandler}>
+          {!isLoginMode && (
+            <FormInput
+              element="input"
+              id="name"
+              type="text"
+              label="Your Name"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a name"
+              onInput={inputHandler}
+            />
+          )}
           <FormInput
             element="input"
-            id="name"
-            type="text"
-            label="Your Name"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Please enter a name"
+            id="email"
+            type="email"
+            label="E-mail"
+            validators={[VALIDATOR_EMAIL()]}
+            errorText="Please enter a valid email address"
             onInput={inputHandler}
           />
-        )}
-        <FormInput
-          element="input"
-          id="email"
-          type="email"
-          label="E-mail"
-          validators={[VALIDATOR_EMAIL()]}
-          errorText="Please enter a valid email address"
-          onInput={inputHandler}
-        />
-        <FormInput
-          element="input"
-          id="password"
-          type="password"
-          label="Password"
-          validators={[VALIDATOR_MINLENGTH(5)]}
-          errorText="Please enter a valid password at least 5 characters"
-          onInput={inputHandler}
-        />
-        <div className="auth-button-group">
-          <button type="submit" disabled={!formState.isValid}>
-            {isLoginMode ? "LOGIN" : "SIGN UP"}
-          </button>
-          <button type="button" onClick={switchModelHandler}>
-            SWITCH TO {isLoginMode ? "SIGN UP" : "LOGIN"}
-          </button>
-        </div>
-      </form>
-    </div>
+          <FormInput
+            element="input"
+            id="password"
+            type="password"
+            label="Password"
+            validators={[VALIDATOR_MINLENGTH(5)]}
+            errorText="Please enter a valid password at least 5 characters"
+            onInput={inputHandler}
+          />
+          <div className="auth-button-group">
+            <button type="submit" disabled={!formState.isValid}>
+              {isLoginMode ? "LOGIN" : "SIGN UP"}
+            </button>
+            <button type="button" onClick={switchModelHandler}>
+              SWITCH TO {isLoginMode ? "SIGN UP" : "LOGIN"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </React.Fragment>
   );
 };
 

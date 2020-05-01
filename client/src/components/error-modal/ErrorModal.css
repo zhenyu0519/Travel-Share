@@ -1,0 +1,18 @@
+.error-modal-button {
+  width: 10vw;
+  height: 4vh auto;
+  font-size: 12px;
+  background-color: #292929;
+  color: aliceblue;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  line-height: 30px;
+}
+
+.error-modal-button:hover {
+  background-color: aliceblue;
+  color: #292929;
+}
