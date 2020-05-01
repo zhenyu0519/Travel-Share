@@ -99,8 +99,10 @@ export const PlaceItem = ({
           </div>
           <div className="place-item-actions">
             <button onClick={openMapHandler}>VIEW ON MAP</button>
-            {auth.isLoggedIn && <Link to={`/places/${id}`}>EDIT</Link>}
-            {auth.isLoggedIn && (
+            {auth.userId === creatorId && (
+              <Link to={`/places/${id}`}>EDIT</Link>
+            )}
+            {auth.userId === creatorId && (
               <button onClick={showDeleteWarningHandler}>DELETE</button>
             )}
           </div>

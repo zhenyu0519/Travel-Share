@@ -27,7 +27,9 @@ const Header = () => {
           <NavLink to="/" exact>
             ALL USERS
           </NavLink>
-          {auth.isLoggedIn && <NavLink to="/u1/places">MY PLACE</NavLink>}
+          {auth.isLoggedIn && (
+            <NavLink to={`/${auth.userId}/places`}>MY PLACE</NavLink>
+          )}
           {auth.isLoggedIn && <NavLink to="/places/new">ADD PLACE</NavLink>}
           {!auth.isLoggedIn && <NavLink to="/auth">LOGIN/SIGNUP</NavLink>}
           {auth.isLoggedIn && <button onClick={auth.logout}>LOG OUT</button>}
