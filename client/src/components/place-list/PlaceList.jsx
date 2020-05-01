@@ -14,7 +14,6 @@ export const PlaceList = ({ places }) => {
   ) : (
     <ul className="place-list">
       {places.map((place) => {
-        console.log(place)
         return (
           <PlaceItem
             key={place.id}
