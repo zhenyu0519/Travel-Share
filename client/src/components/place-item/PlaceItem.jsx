@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import { Modal } from "../modal/Modal";
 import { Map } from "../map/Map";
 import { AuthContext } from "../context/Context";
+import { useHttpClient } from "../http-hooks/HttpHooks";
+import { LoadingSpinner } from "../loading-spinner/LoadingSpinner";
+import { ErrorModal } from "../error-modal/ErrorModal";
 
 export const PlaceItem = ({
   id,
@@ -15,7 +18,14 @@ export const PlaceItem = ({
   address,
   creatorId,
   coordinates,
+  onDelete,
 }) => {
+  const {
+    isLoading,
+    error,
+    sendRequest,
+    clearErrorModalHandler,
+  } = useHttpClient();
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -27,12 +37,16 @@ export const PlaceItem = ({
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
   };
-  const confirmDeleteHandler = () => {
+  const confirmDeleteHandler = async () => {
     setShowConfirmModal(false);
-    console.log("DELETING...");
+    try {
+      await sendRequest(`http://localhost:5000/api/places/${id}`, "DELETE");
+      onDelete(id);
+    } catch (error) {}
   };
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearErrorModalHandler} />
       <Modal
         show={showMap}
         onCancel={closeMapHandle}
@@ -72,6 +86,7 @@ export const PlaceItem = ({
       </Modal>
       <li className="place-item-container">
         <Card className="place-item-content">
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item-image">
             <img src={image} alt={title} />
           </div>

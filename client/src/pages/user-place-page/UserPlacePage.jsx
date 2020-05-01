@@ -29,11 +29,19 @@ const UserPlacePage = () => {
     fetchPlaces();
   }, [sendRequest, userId]);
 
+  const placeDeleteHandler = (deletedPlaceId) => {
+    setLoadedPlaces((prevPlaces) =>
+      prevPlaces.filter((place) => place.id !== deletedPlaceId)
+    );
+  };
+
   return (
     <div className="user-place-page">
       <ErrorModal error={error} onClear={clearErrorModalHandler} />
       {isLoading && <LoadingSpinner asOverlay />}
-      {!isLoading && loadedPlaces && <PlaceList places={loadedPlaces} />}
+      {!isLoading && loadedPlaces && (
+        <PlaceList places={loadedPlaces} onDeletePlaces={placeDeleteHandler} />
+      )}
     </div>
   );
 };

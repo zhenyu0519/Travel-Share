@@ -5,7 +5,7 @@ import { Card } from "../card/Card";
 import { PlaceItem } from "../place-item/PlaceItem";
 import { Link } from "react-router-dom";
 
-export const PlaceList = ({ places }) => {
+export const PlaceList = ({ places, onDeletePlaces }) => {
   return places.length === 0 ? (
     <Card className="place-list-not-found">
       <h2>No places found, Please create one!</h2>
@@ -24,6 +24,7 @@ export const PlaceList = ({ places }) => {
             address={place.address}
             creatorId={place.creatorId}
             coordinates={place.location}
+            onDelete={onDeletePlaces}
           />
         );
       })}
