@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import "./Auth.css";
 // import components
 import { FormInput } from "../../components/form-input/FormInput";
+import { ErrorModal } from "../../components/error-modal/ErrorModal";
+import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner";
 // import validators
 import {
   VALIDATOR_EMAIL,
@@ -18,6 +20,9 @@ const Auth = () => {
   const auth = useContext(AuthContext);
   // react useState hook to manage the isLoginMode state
   const [isLoginMode, setIsLoginMode] = useState(true);
+  // manage loading state and error state
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   // init the useForm state manager
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -38,6 +43,7 @@ const Auth = () => {
     if (isLoginMode) {
     } else {
       try {
+        setIsLoading(true);
         const response = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           // to let backend server know the data type send to it
@@ -53,12 +59,13 @@ const Auth = () => {
         });
         const responseData = await response.json();
         console.log(responseData);
+        setIsLoading(false);
+        auth.login();
       } catch (error) {
-        console.log(error);
+        setIsLoading(false);
+        setError(error.message || "Authenticate faild!");
       }
     }
-
-    auth.login();
   };
 
   const switchModelHandler = () => {
@@ -85,6 +92,7 @@ const Auth = () => {
   };
   return (
     <div className="auth-container">
+      {isLoading && <LoadingSpinner asOverlay />}
       <h2>Login Required</h2>
       <hr />
       <form onSubmit={authSubmitHandler}>
