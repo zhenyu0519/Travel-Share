@@ -55,7 +55,6 @@ const PlacePage = () => {
       );
       history.push("/");
     } catch (error) {
-      console.log(error);
     }
   };
   return (

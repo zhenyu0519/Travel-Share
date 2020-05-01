@@ -60,9 +60,9 @@ const signup = async (req, res, next) => {
 // user login api
 const login = async (req, res, next) => {
   const { email, password } = req.body;
+  // find user by email
+  let existingUser = await User.findOne({ email: email });
   try {
-    // find user by email
-    let existingUser = await User.findOne({ email: email });
     // if user is not existing or password is not correct then return error
     if (!existingUser || existingUser.password !== password) {
       return next(
@@ -73,7 +73,10 @@ const login = async (req, res, next) => {
     return next(new HttpError("Find user failed", 500));
   }
   // if login successfully then response with successful message
-  res.json({ message: "logged in!" });
+  res.json({
+    message: "logged in!",
+    user: existingUser.toObject({ getters: true }),
+  });
 };
 
 // export user controllers

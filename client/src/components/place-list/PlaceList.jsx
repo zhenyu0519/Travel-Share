@@ -8,17 +8,18 @@ import { Link } from "react-router-dom";
 export const PlaceList = ({ places }) => {
   return places.length === 0 ? (
     <Card className="place-list-not-found">
-      <h2>No places found</h2>
+      <h2>No places found, Please create one!</h2>
       <Link to="/places/new">Share Place</Link>
     </Card>
   ) : (
     <ul className="place-list">
       {places.map((place) => {
+        console.log(place)
         return (
           <PlaceItem
             key={place.id}
             id={place.id}
-            image={place.imageUrl}
+            image={place.image}
             title={place.title}
             description={place.description}
             address={place.address}

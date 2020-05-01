@@ -80,7 +80,7 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image:
-      '"https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"',
+      "https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80",
     creator,
   });
   // find if the creator from request is existing database otherwise the creator is wrong
