@@ -11,7 +11,7 @@ export const UserItem = ({ image, name, placeCount, id }) => {
       <Card className="user-item-content">
         <div className="user-item-image">
           <Link to={`/${id}/places`}>
-            <UserAvatar image={image} alt={name} />
+            <UserAvatar image={`http://localhost:5000/${image}`} alt={name} />
           </Link>
         </div>
         <div className="user-item-info">

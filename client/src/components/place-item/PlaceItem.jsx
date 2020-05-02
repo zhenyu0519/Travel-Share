@@ -88,7 +88,7 @@ export const PlaceItem = ({
         <Card className="place-item-content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item-image">
-            <img src={image} alt={title} />
+            <img src={`http://localhost:5000/${image}`} alt={title} />
           </div>
           <div className="place-item-info">
             <h2>

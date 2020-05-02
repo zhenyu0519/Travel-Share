@@ -5,13 +5,16 @@ const placesRoutes = require("./routes/places-routes");
 const userRoutes = require("./routes/users-routes");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const fs = require("fs");
+const path = require("path");
 dotenv.config();
 
 const app = express();
 
 // this will parse any income request body to json format
 app.use(bodyParser.json());
-
+//  this is to get image from local and connet with user
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 // control the cross origin resource sharing (cors)
 app.use((req, res, next) => {
   // let response header have these values attached
@@ -39,6 +42,12 @@ app.use((req, res, next) => {
 
 // this handle error middleware will excute after previous excute
 app.use((error, req, res, next) => {
+  // delete the file
+  if (req.file) {
+    fs.unlink(req.file.path, () => {
+      console.log(err);
+    });
+  }
   if (res.headerSent) {
     return next(error);
   }

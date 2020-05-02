@@ -3,6 +3,7 @@ const express = require("express");
 const { check } = require("express-validator");
 // import place controller
 const placeControllers = require("../controller/places-controllers");
+const fileUpload = require('../middleware/file-upload')
 
 const router = express.Router();
 // get place by place id
@@ -12,6 +13,7 @@ router.get("/user/:uid", placeControllers.getPlacesByUserId);
 // create place
 router.post(
   "/",
+  fileUpload.single('image'),
   [
     check("title").not().isEmpty(),
     check("description").isLength({ min: 5 }),

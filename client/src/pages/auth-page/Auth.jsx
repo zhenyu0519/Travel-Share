@@ -66,7 +66,6 @@ const Auth = () => {
         formData.append("name", formState.inputs.name.value);
         formData.append("password", formState.inputs.password.value);
         formData.append("image", formState.inputs.image.value);
-        console.log("formData", formData);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
@@ -116,7 +115,13 @@ const Auth = () => {
         <h2>Login Required</h2>
         <hr />
         <form onSubmit={authSubmitHandler}>
-          {!isLoginMode && <ImageUpload id="image" onInput={inputHandler} />}
+          {!isLoginMode && (
+            <ImageUpload
+              id="image"
+              onInput={inputHandler}
+              errorText="Please choose an image"
+            />
+          )}
           {!isLoginMode && (
             <FormInput
               element="input"

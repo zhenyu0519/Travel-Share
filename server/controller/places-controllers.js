@@ -8,6 +8,8 @@ const Place = require("../models/place");
 const User = require("../models/user");
 // import mongoose
 const mongoose = require("mongoose");
+// import file style
+const fs = require("fs");
 
 // get place by place id api
 const getPlaceById = async (req, res, next) => {
@@ -79,8 +81,7 @@ const createPlace = async (req, res, next) => {
     description,
     address,
     location: coordinates,
-    image:
-      "https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80",
+    image: req.file.path,
     creator,
   });
   // find if the creator from request is existing database otherwise the creator is wrong
@@ -154,6 +155,8 @@ const deletePlace = async (req, res, next) => {
     return next(new HttpError("Could not find place with creator!", 500));
   }
 
+  const imagePath = placeWithCreator.image;
+
   try {
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -164,6 +167,11 @@ const deletePlace = async (req, res, next) => {
   } catch (err) {
     return next(new HttpError("could not delete place", 500));
   }
+
+  fs.unlink(imagePath, (err) => {
+    console.log(err);
+  });
+
   res.status(200).json({ message: "Deleted the place" });
 };
 
