@@ -46,34 +46,31 @@ const Auth = () => {
 
   const authSubmitHandler = async (event) => {
     event.preventDefault();
-
     if (isLoginMode) {
       try {
-        const formData = new FormData();
-        formData.append("email", formState.inpus.email.value);
-        formData.append("name", formState.inpus.name.value);
-        formData.append("password", formState.inpus.password.value);
-        formData.append("image", formState.inpus.image.value);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/login",
           "POST",
-          formData
+          JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+          { "Content-Type": "application/json" }
         );
         auth.login(responseData.user.id);
       } catch (error) {}
     } else {
       try {
+        const formData = new FormData();
+        formData.append("email", formState.inputs.email.value);
+        formData.append("name", formState.inputs.name.value);
+        formData.append("password", formState.inputs.password.value);
+        formData.append("image", formState.inputs.image.value);
+        console.log("formData", formData);
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
-          JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          formData
         );
         auth.login(responseData.user.id);
       } catch (error) {}
