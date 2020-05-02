@@ -5,6 +5,7 @@ import { FormInput } from "../../components/form-input/FormInput";
 import { ErrorModal } from "../../components/error-modal/ErrorModal";
 import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner";
 import { useHttpClient } from "../../components/http-hooks/HttpHooks";
+import { ImageUpload } from "../../components/image-upload/ImageUpload";
 // import validators
 import {
   VALIDATOR_EMAIL,
@@ -45,6 +46,9 @@ const Auth = () => {
 
   const authSubmitHandler = async (event) => {
     event.preventDefault();
+
+    console.log(formState.inputs);
+
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -80,7 +84,11 @@ const Auth = () => {
   const switchModelHandler = () => {
     if (!isLoginMode) {
       setFormData(
-        { ...formState.inputs, name: undefined },
+        {
+          ...formState.inputs,
+          name: undefined,
+          image: undefined,
+        },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
@@ -89,6 +97,10 @@ const Auth = () => {
           ...formState.inputs,
           name: {
             value: "",
+            isValid: false,
+          },
+          image: {
+            value: null,
             isValid: false,
           },
         },
@@ -108,6 +120,7 @@ const Auth = () => {
         <h2>Login Required</h2>
         <hr />
         <form onSubmit={authSubmitHandler}>
+          {!isLoginMode && <ImageUpload id="image" onInput={inputHandler} />}
           {!isLoginMode && (
             <FormInput
               element="input"
