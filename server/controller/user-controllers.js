@@ -49,14 +49,16 @@ const signup = async (req, res, next) => {
     return next(new HttpError("Can not create user, please try again!", 500));
   }
 
+  console.log("hashedPassword", hashedPassword);
   // created new user base on User schema
   const createdUser = new User({
     name,
     email,
     image: req.file.path,
-    hashedPassword,
+    password: hashedPassword,
     places: [],
   });
+  
   // save the created user to database
   try {
     await createdUser.save();
@@ -77,14 +79,12 @@ const signup = async (req, res, next) => {
   }
 
   // response the new created user when sign up successfully
-  res
-    .status(201)
-    .json({
-      userId: createdUser.id,
-      email: createdUser.email,
-      name: createdUser.name,
-      token: token,
-    });
+  res.status(201).json({
+    userId: createdUser.id,
+    email: createdUser.email,
+    name: createdUser.name,
+    token: token,
+  });
 };
 
 // user login api

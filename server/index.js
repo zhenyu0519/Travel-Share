@@ -45,7 +45,7 @@ app.use((error, req, res, next) => {
   // delete the file
   if (req.file) {
     fs.unlink(req.file.path, () => {
-      console.log(err);
+      console.log(error);
     });
   }
   if (res.headerSent) {
