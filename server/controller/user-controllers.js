@@ -4,6 +4,8 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 // import User schema
 const User = require("../models/user");
+// import jwt
+const jwt = require("jsonwebtoken");
 
 // get users api
 const getUsers = async (req, res, next) => {
@@ -59,11 +61,30 @@ const signup = async (req, res, next) => {
   try {
     await createdUser.save();
   } catch (err) {
-    const error = new HttpError("Signing up user failed!", 500);
-    return next(error);
+    return next(new HttpError("Signing up user failed!", 500));
   }
+
+  // generate token
+  let token;
+  try {
+    token = jwt.sign(
+      { userId: createdUser.id, email: createdUser.email },
+      "jeffrey_secret_key",
+      { expiresIn: "1h" }
+    );
+  } catch (error) {
+    return next(new HttpError("Signing up user failed!", 500));
+  }
+
   // response the new created user when sign up successfully
-  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
+  res
+    .status(201)
+    .json({
+      userId: createdUser.id,
+      email: createdUser.email,
+      name: createdUser.name,
+      token: token,
+    });
 };
 
 // user login api
@@ -72,8 +93,8 @@ const login = async (req, res, next) => {
   // find user by email
   let existingUser = await User.findOne({ email: email });
   try {
-    // if user is not existing or password is not correct then return error
-    if (!existingUser || existingUser.password !== password) {
+    // if user is not existing
+    if (!existingUser) {
       return next(
         new HttpError("Invalid credentials, could not log you in.", 500)
       );
@@ -81,10 +102,44 @@ const login = async (req, res, next) => {
   } catch (err) {
     return next(new HttpError("Find user failed", 500));
   }
+  // check password is valid
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+  } catch (error) {
+    return next(
+      new HttpError(
+        "Can not login, please check your credentials and try again",
+        500
+      )
+    );
+  }
+
+  // if the password is not valid throw error
+  if (!isValidPassword) {
+    return next(
+      new HttpError("Invalid credentials, could not log you in.", 500)
+    );
+  }
+
+  // generate token
+  let token;
+  try {
+    token = jwt.sign(
+      { userId: existingUser.id, email: existingUser.email },
+      "jeffrey_secret_key",
+      { expiresIn: "1h" }
+    );
+  } catch (error) {
+    return next(new HttpError("Login up user failed!", 500));
+  }
+
   // if login successfully then response with successful message
   res.json({
-    message: "logged in!",
-    user: existingUser.toObject({ getters: true }),
+    userId: createdUser.id,
+    email: createdUser.email,
+    name: createdUser.name,
+    token: token,
   });
 };
 
