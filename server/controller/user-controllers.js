@@ -49,7 +49,6 @@ const signup = async (req, res, next) => {
     return next(new HttpError("Can not create user, please try again!", 500));
   }
 
-  console.log("hashedPassword", hashedPassword);
   // created new user base on User schema
   const createdUser = new User({
     name,
@@ -58,7 +57,7 @@ const signup = async (req, res, next) => {
     password: hashedPassword,
     places: [],
   });
-  
+
   // save the created user to database
   try {
     await createdUser.save();
@@ -136,9 +135,9 @@ const login = async (req, res, next) => {
 
   // if login successfully then response with successful message
   res.json({
-    userId: createdUser.id,
-    email: createdUser.email,
-    name: createdUser.name,
+    userId: existingUser.id,
+    email: existingUser.email,
+    name: existingUser.name,
     token: token,
   });
 };
