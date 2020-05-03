@@ -131,7 +131,6 @@ const updatePlace = async (req, res, next) => {
 
   // check if the place creater is logined user
   if (place.creator.toString() !== req.userData.userId) {
-    console.log(place.creator,req.userData.userId)
     throw next(new HttpError("You are not allowed to edit this place", 401));
   }
 

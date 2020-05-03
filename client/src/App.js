@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import "./globalStyles.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 // components
@@ -10,17 +10,61 @@ import UpdatePlacePage from "./pages/update-place-page/UpdatePlacePage";
 import Auth from "./pages/auth-page/Auth";
 import { AuthContext } from "./components/context/Context";
 
+let logoutTimer;
+
 function App() {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(false);
-  const login = useCallback((uid, token) => {
+  const [tokenExpirationTime, setTokenExpirationTime] = useState();
+
+  const login = useCallback((uid, token, expirationDate) => {
     setToken(token);
     setUserId(uid);
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    setTokenExpirationTime(tokenExpirationDate);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        userId: uid,
+        token: token,
+        expiration: tokenExpirationDate.toISOString(),
+      })
+    );
   }, []);
+
+  useEffect(() => {
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    if (
+      storedUserData &&
+      storedUserData.token &&
+      new Date(storedUserData.expiration) > new Date()
+    ) {
+      login(
+        storedUserData.userId,
+        storedUserData.token,
+        new Date(storedUserData.expiration)
+      );
+    }
+  }, [login]);
+
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
+    setTokenExpirationTime(null);
+    localStorage.removeItem("userData");
   }, []);
+
+  // for auto log out
+  useEffect(() => {
+    if (token && tokenExpirationTime) {
+      const remainingTime =
+        tokenExpirationTime.getTime() - new Date().getTime();
+      logoutTimer = setTimeout(logout, remainingTime);
+    } else {
+      clearTimeout(logoutTimer);
+    }
+  }, [token, logout, tokenExpirationTime]);
 
   return (
     <div className="App">
