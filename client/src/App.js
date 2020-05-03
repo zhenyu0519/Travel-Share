@@ -11,14 +11,14 @@ import Auth from "./pages/auth-page/Auth";
 import { AuthContext } from "./components/context/Context";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(false);
-  const login = useCallback((uid) => {
-    setIsLoggedIn(true);
+  const login = useCallback((uid, token) => {
+    setToken(token);
     setUserId(uid);
   }, []);
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
     setUserId(null);
   }, []);
 
@@ -26,7 +26,8 @@ function App() {
     <div className="App">
       <AuthContext.Provider
         value={{
-          isLoggedIn: isLoggedIn,
+          isLoggedIn: !!token,
+          token: token,
           userId: userId,
           login: login,
           logout: logout,
@@ -38,22 +39,20 @@ function App() {
           <Route
             exact
             path="/places/new"
-            render={() =>
-              isLoggedIn ? <PlacePage /> : <Redirect to="/auth" />
-            }
+            render={() => (token ? <PlacePage /> : <Redirect to="/auth" />)}
           />
           <Route
             exact
             path="/places/:placeId"
             render={() =>
-              isLoggedIn ? <UpdatePlacePage /> : <Redirect to="/auth" />
+              token ? <UpdatePlacePage /> : <Redirect to="/auth" />
             }
           />
           <Route exact path="/:userId/places" component={UserPlacePage} />
           <Route
             exact
             path="/auth"
-            render={() => (isLoggedIn ? <Redirect to="/" /> : <Auth />)}
+            render={() => (token ? <Redirect to="/" /> : <Auth />)}
           />
         </Switch>
       </AuthContext.Provider>
