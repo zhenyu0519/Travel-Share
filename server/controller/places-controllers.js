@@ -129,6 +129,12 @@ const updatePlace = async (req, res, next) => {
     return next(new HttpError("Can not find place!", 500));
   }
 
+  // check if the place creater is logined user
+  if (place.creator.toString() !== req.userData.userId) {
+    console.log(place.creator,req.userData.userId)
+    throw next(new HttpError("You are not allowed to edit this place", 401));
+  }
+
   // update title and description
   place.title = title;
   place.description = description;
@@ -153,6 +159,10 @@ const deletePlace = async (req, res, next) => {
     }
   } catch (err) {
     return next(new HttpError("Could not find place with creator!", 500));
+  }
+
+  if (placeWithCreator.creator.id !== req.userData.userId) {
+    throw next(new HttpError("You are not allowed to edit this place", 401));
   }
 
   const imagePath = placeWithCreator.image;
