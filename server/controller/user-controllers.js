@@ -1,5 +1,7 @@
 const HttpError = require("../util/http-error");
 const { validationResult } = require("express-validator");
+// to hash the password
+const bcrypt = require("bcryptjs");
 // import User schema
 const User = require("../models/user");
 
@@ -37,12 +39,20 @@ const signup = async (req, res, next) => {
   } catch (err) {
     return next(new HttpError("Find user failed!", 500));
   }
+
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hash(password, 12);
+  } catch (error) {
+    return next(new HttpError("Can not create user, please try again!", 500));
+  }
+
   // created new user base on User schema
   const createdUser = new User({
     name,
     email,
     image: req.file.path,
-    password,
+    hashedPassword,
     places: [],
   });
   // save the created user to database
