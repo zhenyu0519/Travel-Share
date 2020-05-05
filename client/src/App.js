@@ -5,18 +5,21 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import UserPage from "./pages/user-page/UserPage";
 import UserPlacePage from "./pages/user-place-page/UserPlacePage";
 import PlacePage from "./pages/place-page/PlacePage";
-import Header from "./components/header/Header";
 import UpdatePlacePage from "./pages/update-place-page/UpdatePlacePage";
 import Auth from "./pages/auth-page/Auth";
+import { Header } from "./components/header/Header";
 import { AuthContext } from "./components/context/Context";
 
+// set logout timer
 let logoutTimer;
 
 function App() {
+  // manage states
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(false);
   const [tokenExpirationTime, setTokenExpirationTime] = useState();
 
+  // define login function here and put it into context to share to auth component
   const login = useCallback((uid, token, expirationDate) => {
     setToken(token);
     setUserId(uid);
@@ -33,6 +36,7 @@ function App() {
     );
   }, []);
 
+  // refresh page will keep login
   useEffect(() => {
     const storedUserData = JSON.parse(localStorage.getItem("userData"));
     if (
@@ -48,6 +52,7 @@ function App() {
     }
   }, [login]);
 
+  // define logout function here and put it into context to share with other components
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);

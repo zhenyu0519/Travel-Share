@@ -40,7 +40,7 @@ export const useForm = (initialInputs, initialFormValidity) => {
     isValid: initialFormValidity,
   });
 
-  // useCallback wtake a function and an array of dependencies as parameters like ‘useEffect’.
+  // useCallback will take a function and an array of dependencies as parameters like ‘useEffect’.
   // The function’s return value will only be changed if one of the dependencies value changes —
   // otherwise a cached value will be returned. Note that passing an empty array of dependencies will
   // cause the Hook to execute the function once but passing it no array at all will return a new value on every call.

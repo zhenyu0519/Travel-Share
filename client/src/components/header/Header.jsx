@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { SideNav } from "../side-nav/SideNav";
 import { AuthContext } from "../context/Context";
 
-const Header = () => {
+export const Header = () => {
   // react useState hook to manage the sideNavIsOpen state
   const [sideNavIsOpen, setSideNavOpen] = useState(false);
   const openSideNav = () => setSideNavOpen(true);
@@ -39,5 +39,3 @@ const Header = () => {
     </React.Fragment>
   );
 };
-
-export default Header;

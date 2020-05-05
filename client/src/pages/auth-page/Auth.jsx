@@ -77,6 +77,7 @@ const Auth = () => {
   };
 
   const switchModelHandler = () => {
+    // sign up
     if (!isLoginMode) {
       setFormData(
         {
@@ -86,7 +87,7 @@ const Auth = () => {
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
-    } else {
+    } else {// login
       setFormData(
         {
           ...formState.inputs,
@@ -119,7 +120,7 @@ const Auth = () => {
             <ImageUpload
               id="image"
               onInput={inputHandler}
-              errorText="Please choose an image"
+              errorText="Please choose an image!"
             />
           )}
           {!isLoginMode && (

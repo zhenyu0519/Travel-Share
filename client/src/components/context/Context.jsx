@@ -1,3 +1,4 @@
+// This is to share public states
 import { createContext } from "react";
 
 export const AuthContext = createContext({

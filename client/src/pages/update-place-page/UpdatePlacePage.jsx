@@ -24,7 +24,7 @@ const UpdatePlacePage = () => {
   const [loadedPlace, setLoadedPlace] = useState();
   // useParams is to get parameter from path of route
   const placeId = useParams().placeId;
-  // history from react route
+  // history from react route to redirect path
   const history = useHistory();
 
   const [formState, inputHandler, setFormData] = useForm(

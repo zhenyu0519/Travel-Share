@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
+// path history from routes
 import { useHistory } from "react-router-dom";
 import "./PlacePage.css";
-import { FormInput } from "../../components/form-input/FormInput";
+// error validation utils
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../utils/validator";
+// componenets
+import { FormInput } from "../../components/form-input/FormInput";
 import { useForm } from "../../components/form-hooks/FormHooks";
 import { useHttpClient } from "../../components/http-hooks/HttpHooks";
 import { AuthContext } from "../../components/context/Context";
@@ -11,7 +14,9 @@ import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner"
 import { ImageUpload } from "../../components/image-upload/ImageUpload";
 
 const PlacePage = () => {
+  // access to public state
   const auth = useContext(AuthContext);
+  // get http hooks for send request
   const {
     isLoading,
     error,
@@ -40,8 +45,9 @@ const PlacePage = () => {
     false
   );
 
+  // get history api for path
   const history = useHistory();
-
+  // submit create new place request
   const placeSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -54,6 +60,7 @@ const PlacePage = () => {
       await sendRequest("http://localhost:5000/api/places", "POST", formData, {
         Authorization: "Bearer " + auth.token,
       });
+      // redirect to main page
       history.push("/");
     } catch (error) {}
   };

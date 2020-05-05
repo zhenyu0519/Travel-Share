@@ -53,7 +53,7 @@ export const ImageUpload = ({ id, onInput, errorText }) => {
           {previewUrl ? (
             <img src={previewUrl} alt="Preview" />
           ) : (
-            <p>Please choose a image</p>
+            <p>Choose a image</p>
           )}
         </div>
         <button type="button" onClick={chooseImageHandler}>
