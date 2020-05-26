@@ -11,7 +11,7 @@ export const UserItem = ({ image, name, placeCount, id }) => {
       <Card className="user-item-content">
         <div className="user-item-image">
           <Link to={`/${id}/places`}>
-            <UserAvatar image={`http://localhost:5000/${image}`} alt={name} />
+            <UserAvatar image={`${process.env.REACT_APP_BACKEND_URL}/${image}`} alt={name} />
           </Link>
         </div>
         <div className="user-item-info">

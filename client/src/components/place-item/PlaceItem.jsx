@@ -17,6 +17,7 @@ export const PlaceItem = ({
   description,
   address,
   creatorId,
+  creator,
   coordinates,
   onDelete,
 }) => {
@@ -41,7 +42,7 @@ export const PlaceItem = ({
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:5000/api/places/${id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/places/${id}`,
         "DELETE",
         null,
         {
@@ -95,11 +96,11 @@ export const PlaceItem = ({
         <Card className="place-item-content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item-image">
-            <img src={`http://localhost:5000/${image}`} alt={title} />
+            <img src={`${process.env.REACT_APP_BACKEND_URL}/${image}`} alt={title} />
           </div>
           <div className="place-item-info">
             <h2>
-              {title} - by {creatorId}
+              {title} - by {creator}
             </h2>
             <h3>{address}</h3>
             <p>{description}</p>
