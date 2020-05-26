@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+#local storage
+/uploads
+
 # misc
 .DS_Store
 .env.local

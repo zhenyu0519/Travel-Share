@@ -1,12 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const HttpError = require("./util/http-error");
-const placesRoutes = require("./routes/places-routes");
-const userRoutes = require("./routes/users-routes");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+// import file system
 const fs = require("fs");
 const path = require("path");
+// cutome http error utils
+const HttpError = require("./util/http-error");
+// routes
+const placesRoutes = require("./routes/places-routes");
+const userRoutes = require("./routes/users-routes");
+
 dotenv.config();
 
 const app = express();

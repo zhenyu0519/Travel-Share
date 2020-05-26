@@ -9,6 +9,7 @@ import { LoadingSpinner } from "../../components/loading-spinner/LoadingSpinner"
 
 const UserPlacePage = () => {
   const [loadedPlaces, setLoadedPlaces] = useState();
+  const [creator, setCreator] = useState();
   const {
     isLoading,
     error,
@@ -23,6 +24,7 @@ const UserPlacePage = () => {
         const responseData = await sendRequest(
           `http://localhost:5000/api/places/user/${userId}`
         );
+        setCreator(responseData.creator)
         setLoadedPlaces(responseData.places);
       } catch (error) {}
     };
@@ -40,7 +42,7 @@ const UserPlacePage = () => {
       <ErrorModal error={error} onClear={clearErrorModalHandler} />
       {isLoading && <LoadingSpinner asOverlay />}
       {!isLoading && loadedPlaces && (
-        <PlaceList places={loadedPlaces} onDeletePlaces={placeDeleteHandler} />
+        <PlaceList places={loadedPlaces} creator={creator} onDeletePlaces={placeDeleteHandler} />
       )}
     </div>
   );

@@ -50,9 +50,10 @@ const getPlacesByUserId = async (req, res, next) => {
     );
   }
   res.json({
-    places: userWithPlaces.places.map((place) =>
-      place.toObject({ getters: true })
-    ),
+    places: userWithPlaces.places.map((place) => {
+      return place.toObject({ getters: true });
+    }),
+    creator: userWithPlaces.name,
   });
 };
 
