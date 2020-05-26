@@ -14,6 +14,7 @@ export const PlaceList = ({ places, onDeletePlaces }) => {
   ) : (
     <ul className="place-list">
       {places.map((place) => {
+        console.log(place)
         return (
           <PlaceItem
             key={place.id}

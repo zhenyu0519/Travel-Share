@@ -1,22 +1,21 @@
 .place-item-container {
   width: 600px;
-  height: 600px;
-  padding: 20px;
+  margin-top: 10px;
 }
 
 .place-item-image img {
-  width: 100%;
   height: 300px;
+  padding: 15px;
 }
 
 .place-item-info {
   width: 100%;
-  height: 200px;
+  max-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
-  padding: 10px;
+  overflow: scroll;
+  padding: 20px;
 }
 
 .place-item-actions {
