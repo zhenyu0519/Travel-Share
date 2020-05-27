@@ -1,14 +1,25 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, Suspense } from "react";
 import "./globalStyles.css";
 import { Route, Switch, Redirect } from "react-router-dom";
 // components
-import UserPage from "./pages/user-page/UserPage";
-import UserPlacePage from "./pages/user-place-page/UserPlacePage";
-import PlacePage from "./pages/place-page/PlacePage";
-import UpdatePlacePage from "./pages/update-place-page/UpdatePlacePage";
-import Auth from "./pages/auth-page/Auth";
+// import UserPage from "./pages/user-page/UserPage";
+// import UserPlacePage from "./pages/user-place-page/UserPlacePage";
+// import PlacePage from "./pages/place-page/PlacePage";
+// import UpdatePlacePage from "./pages/update-place-page/UpdatePlacePage";
+// import Auth from "./pages/auth-page/Auth";
 import { Header } from "./components/header/Header";
 import { AuthContext } from "./components/context/Context";
+import { LoadingSpinner } from "./components/loading-spinner/LoadingSpinner";
+
+const UserPage = React.lazy(() => import("./pages/user-page/UserPage"));
+const UserPlacePage = React.lazy(() =>
+  import("./pages/user-place-page/UserPlacePage")
+);
+const PlacePage = React.lazy(() => import("./pages/place-page/PlacePage"));
+const UpdatePlacePage = React.lazy(() =>
+  import("./pages/update-place-page/UpdatePlacePage")
+);
+const Auth = React.lazy(() => import("./pages/auth-page/Auth"));
 
 // set logout timer
 let logoutTimer;
@@ -84,25 +95,27 @@ function App() {
       >
         <Header />
         <Switch>
-          <Route exact path="/" component={UserPage} />
-          <Route
-            exact
-            path="/places/new"
-            render={() => (token ? <PlacePage /> : <Redirect to="/auth" />)}
-          />
-          <Route
-            exact
-            path="/places/:placeId"
-            render={() =>
-              token ? <UpdatePlacePage /> : <Redirect to="/auth" />
-            }
-          />
-          <Route exact path="/:userId/places" component={UserPlacePage} />
-          <Route
-            exact
-            path="/auth"
-            render={() => (token ? <Redirect to="/" /> : <Auth />)}
-          />
+          <Suspense fallback={<LoadingSpinner />}>
+            <Route exact path="/" component={UserPage} />
+            <Route
+              exact
+              path="/places/new"
+              render={() => (token ? <PlacePage /> : <Redirect to="/auth" />)}
+            />
+            <Route
+              exact
+              path="/places/:placeId"
+              render={() =>
+                token ? <UpdatePlacePage /> : <Redirect to="/auth" />
+              }
+            />
+            <Route exact path="/:userId/places" component={UserPlacePage} />
+            <Route
+              exact
+              path="/auth"
+              render={() => (token ? <Redirect to="/" /> : <Auth />)}
+            />
+          </Suspense>
         </Switch>
       </AuthContext.Provider>
     </div>
