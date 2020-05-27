@@ -1,0 +1,9 @@
+.card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.56);
+  border-radius: 10px;
+  max-width: 600px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

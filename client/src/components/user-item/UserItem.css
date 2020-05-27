@@ -1,0 +1,30 @@
+.user-item-container {
+  width: 600px;
+  background-color: #292929;
+}
+
+.user-item-container :hover {
+  background-color: #ffd900;
+}
+
+.user-item-image {
+  margin: auto 10px;
+  width: 80px;
+  height: 80px;
+}
+
+.user-item-info {
+  width: 65%;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-item-info h2 {
+  color: #ffd900;
+}
+
+.user-item-container :hover h2,
+.user-item-container :hover h3 {
+  color: #292929;
+}
