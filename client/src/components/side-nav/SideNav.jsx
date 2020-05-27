@@ -15,7 +15,7 @@ export const SideNav = ({ closeSideNav }) => {
       <hr />
       <NavLink to="/u1/places">MY PLACE</NavLink>
       <hr />
-      <NavLink to="/places/new">ADD PLACE</NavLink>
+      <NavLink to="/place/new">ADD PLACE</NavLink>
       <hr />
       <NavLink to="/auth">LOGIN/SIGNUP</NavLink>
     </nav>

@@ -9,7 +9,7 @@ export const PlaceList = ({ places, creator, onDeletePlaces }) => {
   return places.length === 0 ? (
     <Card className="place-list-not-found">
       <h2>No places found, Please create one!</h2>
-      <Link to="/places/new">Share Place</Link>
+      <Link to="/place/new">Share Place</Link>
     </Card>
   ) : (
     <ul className="place-list">

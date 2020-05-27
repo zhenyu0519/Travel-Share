@@ -2,5 +2,5 @@ body {
   font-family: "Comic Neue", cursive;
   background: #292929;
   color: white;
-  overflow: hidden;
+  overflow: scroll;
 }

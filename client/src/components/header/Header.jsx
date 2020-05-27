@@ -30,7 +30,7 @@ export const Header = () => {
           {auth.isLoggedIn && (
             <NavLink to={`/${auth.userId}/places`}>MY PLACE</NavLink>
           )}
-          {auth.isLoggedIn && <NavLink to="/places/new">ADD PLACE</NavLink>}
+          {auth.isLoggedIn && <NavLink to="/place/new">ADD PLACE</NavLink>}
           {!auth.isLoggedIn && <NavLink to="/auth">LOGIN/SIGNUP</NavLink>}
           {auth.isLoggedIn && <button onClick={auth.logout}>LOG OUT</button>}
         </nav>

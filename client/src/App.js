@@ -99,7 +99,7 @@ function App() {
             <Route exact path="/" component={UserPage} />
             <Route
               exact
-              path="/places/new"
+              path="/place/new"
               render={() => (token ? <PlacePage /> : <Redirect to="/auth" />)}
             />
             <Route
