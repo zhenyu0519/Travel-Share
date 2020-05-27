@@ -62,13 +62,13 @@ app.use((error, req, res, next) => {
 // if connect to database is successful then we start the server
 mongoose
   .connect(
-    `mongodb+srv://Jeffrey:${process.env.DATA_BASE_PASS}@cluster0-lpr0w.mongodb.net/places?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DATA_BASE_PASS}@cluster0-lpr0w.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
     // these three options to remove deprecation warnings
     { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
   )
   .then(() => {
     console.log("=== Database Connected! ===");
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT||5000);
   })
   .catch((err) => {
     console.log(err);
