@@ -11,7 +11,6 @@
 ## Table of Contents 
 
   - [About](#about)
-  - [Production](#production)
   - [Tech Stack](#tech-stack)
   - [Before Start](#before-start)
   - [Install](#install)
@@ -73,7 +72,7 @@ MongoDB, Express, React (Hooks), Node.js, REST api, JavaScript, Google map api
 
 
 ## Preview
-![demo](https://github.com/zhenyu0519/Travel-Share/tree/master/client/public/demo.gif)
+![demo](https://github.com/zhenyu0519/Travel-Share/blob/master/client/public/demo.gif)
 
 ---
 
